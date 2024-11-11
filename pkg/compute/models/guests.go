@@ -1990,6 +1990,11 @@ func (manager *SGuestManager) validateCreateData(
 			if len(input.BillingType) == 0 {
 				input.BillingType = billing_api.BILLING_TYPE_PREPAID
 			}
+
+			//新增裸金属到期回收支持
+			if input.Hypervisor == api.HYPERVISOR_BAREMETAL {
+				input.BillingType = billing_api.BILLING_TYPE_POSTPAID
+			}
 			input.BillingCycle = billingCycle.String()
 			// expired_at will be set later by callback
 			// data.Add(jsonutils.NewTimeString(billingCycle.EndAt(time.Time{})), "expired_at")
